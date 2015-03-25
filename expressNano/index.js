@@ -7,14 +7,21 @@ app.use(pars.urlencoded({ extended: false }));
 
 app.get('/', function(req, res)
 {
-  res.send("Hello Wolrd!");
+  res.end("Hello Wolrd!");
 });
 
 app.post('/', function(req, res)
 {
-  res.end(req);
+  var header=req.headers['authorization']||'',  // get the header
+  token=header.split(/\s+/).pop()||'',          // and the encoded auth token
+  auth=new Buffer(token, 'base64').toString(),  // convert from base64
+  parts=auth.split(/:/),                        // split on colon
+  username=parts[0],
+  password=parts[1];
   console.log("POST recu -> " + req);
-  res.send("Tentative de POST");
+  res.send("Tentative de POST -> " +
+  req.body.id + " user -> " +
+  username + " pass -> " + password);
 });
 
 var server = app.listen(8888, function()
