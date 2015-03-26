@@ -2,6 +2,7 @@ var express = require('express');
 var nano = require('nano')('http://localhost:5984');
 var pars = require('body-parser');
 var app = express();
+var check_user = require('./check_user')
 
 app.use(pars.urlencoded({ extended: false }));
 
@@ -12,16 +13,9 @@ app.get('/', function(req, res)
 
 app.post('/', function(req, res)
 {
-  var header=req.headers['authorization']||'',  // get the header
-  token=header.split(/\s+/).pop()||'',          // and the encoded auth token
-  auth=new Buffer(token, 'base64').toString(),  // convert from base64
-  parts=auth.split(/:/),                        // split on colon
-  username=parts[0],
-  password=parts[1];
+  check_user(req, res);
   console.log("POST recu -> " + req);
-  res.send("Tentative de POST -> " +
-  req.body.id + " user -> " +
-  username + " pass -> " + password);
+  res.send("Tentative de POST -> " + req.body.id);
 });
 
 var server = app.listen(8888, function()
