@@ -2,7 +2,7 @@ var express = require('express');
 var nano = require('nano')('http://localhost:5984');
 var pars = require('body-parser');
 var app = express();
-var check_user = require('./check_user')
+var check_user = require("./check_user")
 
 app.use(pars.urlencoded({ extended: false }));
 
@@ -11,10 +11,10 @@ app.get('/', function(req, res)
   res.end("Hello Wolrd!");
 });
 
-app.post('/', function(req, res)
+app.post('/', check_user.check_user, function(req, res)
 {
-  check_user(req, res);
-  console.log("POST recu -> " + req);
+  //check_user.check_user(req, res);
+  console.log("POST recu -> " + req.body.id);
   res.send("Tentative de POST -> " + req.body.id);
 });
 
