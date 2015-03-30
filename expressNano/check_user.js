@@ -1,3 +1,6 @@
+var nano = require('nano')('http://localhost:5984');
+var dbLog = nano.db.use('white_list');
+
 function check_user(req, res, next)
 {
   var header = req.headers['authorization']||'',  // get the header
@@ -8,6 +11,16 @@ function check_user(req, res, next)
   password = parts[1];
   console.log("user = " + username);
   console.log("pass = " + password);
+
+  nano.db.get('white_list', function(err, body)
+  {
+    if (!err)
+    {
+      console.log(body);
+      var json = JSON.parse(body);
+      console.log(json.key);
+    }
+  });
   next();
 }
 
