@@ -5,7 +5,7 @@ var fs = require('fs');
 fileTool = function(db)
 {
 	this.db = db;
-};
+}
 
 fileTool.prototype.setDb = function(db)
 {
@@ -21,7 +21,7 @@ fileTool.prototype.getCollection = function(callback)
 		else
 			callback(null, files);
 	});
-};
+}
 
 fileTool.prototype.get = function(id, callback)
 {
@@ -46,7 +46,7 @@ fileTool.prototype.get = function(id, callback)
 				}
 			}
 		});
-};
+}
 
 fileTool.prototype.sendGet = function(req, res)
 {
@@ -72,7 +72,7 @@ fileTool.prototype.sendGet = function(req, res)
 	}
 	else
 		res.status(400).send('file not found');
-};
+}
 
 fileTool.prototype.save = function(obj, callback)
 {
@@ -89,7 +89,7 @@ fileTool.prototype.save = function(obj, callback)
 			});
 		}
 	});
-};
+}
 
 fileTool.prototype.getNewFileId = function(obj, callback)
 {
@@ -100,7 +100,7 @@ fileTool.prototype.getNewFileId = function(obj, callback)
 		else
 			callback(null, obj._id);
 	});
-};
+}
 
 fileTool.prototype.uploadRequest = function(req, res)
 {
@@ -130,6 +130,6 @@ fileTool.prototype.uploadRequest = function(req, res)
             });
         }
     });
-};
+}
 
 exports.fileTool = fileTool;

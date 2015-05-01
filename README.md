@@ -1,2 +1,2 @@
 # js_serv
-serveur nodejs pour appli mobile
+api node js
